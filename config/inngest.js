@@ -1,14 +1,22 @@
 import { Inngest } from "inngest";
-import connectDB from "../lib/db";
+import connectDB from "./db";
 import User from "../models/User";
 
+// Create Inngest client
 export const inngest = new Inngest({ id: "quickcart-next" });
 
+/* ---------------- USER CREATE ---------------- */
 export const syncUserCreation = inngest.createFunction(
   { id: "sync-user-from-clerk" },
   { event: "clerk/user.created" },
   async ({ event }) => {
-    const { id, email_addresses, first_name, last_name, image_url } = event.data;
+    const {
+      id,
+      email_addresses,
+      first_name,
+      last_name,
+      image_url,
+    } = event.data;
 
     await connectDB();
     await User.create({
@@ -20,11 +28,18 @@ export const syncUserCreation = inngest.createFunction(
   }
 );
 
+/* ---------------- USER UPDATE ---------------- */
 export const syncUserUpdation = inngest.createFunction(
   { id: "update-user-from-clerk" },
   { event: "clerk/user.updated" },
   async ({ event }) => {
-    const { id, email_addresses, first_name, last_name, image_url } = event.data;
+    const {
+      id,
+      email_addresses,
+      first_name,
+      last_name,
+      image_url,
+    } = event.data;
 
     await connectDB();
     await User.findByIdAndUpdate(id, {
@@ -35,6 +50,7 @@ export const syncUserUpdation = inngest.createFunction(
   }
 );
 
+/* ---------------- USER DELETE ---------------- */
 export const syncUserDeletion = inngest.createFunction(
   { id: "delete-user-from-clerk" },
   { event: "clerk/user.deleted" },
