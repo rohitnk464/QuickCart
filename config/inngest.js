@@ -12,50 +12,55 @@ export const syncUserCreation = inngest.createFunction(
   async ({ event }) => {
     const {
       id,
-      email_addresses,
       first_name,
       last_name,
+      email_addresses,
       image_url,
     } = event.data;
 
-    await connectDB();
-    await User.create({
-      _id: id,
-      email: email_addresses[0]?.email_address,
-      name: `${first_name ?? ""} ${last_name ?? ""}`,
-      imageUrl: image_url,
-    });
-  }
-);
+   const userData={
+    _id:id,
+    email:email_addresses[0].email_address,
+     name:first_name+' ' +last_name, 
+     imageUrl:image_url
 
-/* ---------------- USER UPDATE ---------------- */
-export const syncUserUpdation = inngest.createFunction(
-  { id: "update-user-from-clerk" },
-  { event: "clerk/user.updated" },
-  async ({ event }) => {
-    const {
-      id,
-      email_addresses,
-      first_name,
-      last_name,
-      image_url,
-    } = event.data;
+   }
+  await connectDB(
+    await User.create(userData)
+  )
+}
+)
 
-    await connectDB();
-    await User.findByIdAndUpdate(id, {
-      email: email_addresses[0]?.email_address,
-      name: `${first_name ?? ""} ${last_name ?? ""}`,
-      imageUrl: image_url,
-    });
-  }
-);
+//ingest function to u[date user data in db]
 
-/* ---------------- USER DELETE ---------------- */
-export const syncUserDeletion = inngest.createFunction(
-  { id: "delete-user-from-clerk" },
+export const syncUserUpdation=inngest.createFunction(
+  {
+    id: ' update-user from clerk'
+  },
+  {event :'clerk/user.updated'},
+  async ({event})=>{
+
+const userData={
+    _id:id,
+    email:email_addresses[0].email_address,
+     name:first_name+' ' +last_name, 
+     imageUrl:image_url
+
+   }
+ await connectDB()
+ await User.findByIdAndUpdate(id,userData)
+  })
+
+
+  export const syncUserDeletion = inngest.createFunction(
+  {
+    id: "delete-user-from-clerk",
+  },
   { event: "clerk/user.deleted" },
   async ({ event }) => {
+    const { id } = event.data;
     await connectDB();
-    await User.findByIdAndDelete(event.data.id);
+    await User.findByIdAndDelete(id);
+    return { success: true };
   }
 );
