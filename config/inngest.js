@@ -2,17 +2,10 @@ import { Inngest } from "inngest";
 import connectDB from "./db";
 import User from "../models/User";
 
-// Create Inngest client
+// Create Inngest client (ONLY ONCE)
 export const inngest = new Inngest({ id: "quickcart-next" });
 
-/* ---------------- USER CREATE ---------------- */
-import { Inngest } from "inngest";
-import connectDB from "./db";
-import User from "../models/User";
-
-export const inngest = new Inngest({ id: "quickcart-next" });
-
-/* ---------------- USER CREATE ---------------- */
+/* ---------------- USER CREATE (UPSERT) ---------------- */
 export const syncUserCreation = inngest.createFunction(
   { id: "sync-user-from-clerk" },
   { event: "clerk/user.created" },
@@ -27,22 +20,25 @@ export const syncUserCreation = inngest.createFunction(
     } = event.data;
 
     const userData = {
-      _id: id,
       email: email_addresses[0].email_address,
       name: `${first_name} ${last_name}`,
       imageUrl: image_url,
     };
 
     await connectDB();
-    await User.create(userData);     
+
+    // ✅ UPSERT = create if not exists, update if exists
+    await User.findByIdAndUpdate(
+      id,
+      { $set: userData },
+      { upsert: true, new: true }
+    );
 
     return { success: true };
   }
 );
 
-
-//ingest function to update user data in db]
-
+/* ---------------- USER UPDATE ---------------- */
 export const syncUserUpdation = inngest.createFunction(
   { id: "update-user-from-clerk" },
   { event: "clerk/user.updated" },
@@ -63,23 +59,24 @@ export const syncUserUpdation = inngest.createFunction(
     };
 
     await connectDB();
+
     await User.findByIdAndUpdate(id, userData, { new: true });
 
     return { success: true };
   }
 );
 
-
-
-  export const syncUserDeletion = inngest.createFunction(
-  {
-    id: "delete-user-from-clerk",
-  },
+/* ---------------- USER DELETE ---------------- */
+export const syncUserDeletion = inngest.createFunction(
+  { id: "delete-user-from-clerk" },
   { event: "clerk/user.deleted" },
+
   async ({ event }) => {
     const { id } = event.data;
+
     await connectDB();
     await User.findByIdAndDelete(id);
+
     return { success: true };
   }
 );
