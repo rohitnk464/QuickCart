@@ -2,10 +2,8 @@ import { Inngest } from "inngest";
 import connectDB from "./db";
 import User from "../models/User";
 
-// Create Inngest client (ONLY ONCE)
 export const inngest = new Inngest({ id: "quickcart-next" });
 
-/* ---------------- USER CREATE (UPSERT) ---------------- */
 export const syncUserCreation = inngest.createFunction(
   { id: "sync-user-from-clerk" },
   { event: "clerk/user.created" },
@@ -27,7 +25,7 @@ export const syncUserCreation = inngest.createFunction(
 
     await connectDB();
 
-    // ✅ UPSERT = create if not exists, update if exists
+
     await User.findByIdAndUpdate(
       id,
       { $set: userData },

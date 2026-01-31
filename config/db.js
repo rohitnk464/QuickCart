@@ -18,20 +18,13 @@ async function connectDB() {
     };
 
     // 2. Fixed the promise assignment
-    cached.promise = mongoose.connect(`${process.env.MONGODB_URI}/quickcart`, opts).then((mongoose) => {
+    cached.promise = mongoose.connect(`${process.env.MONGODB_URI}/quickcart`, opts).then(mongoose => {
       return mongoose;
-    });
+    })
   }
 
-  try {
-    cached.conn = await cached.promise;
-  } catch (e) {
-    cached.promise = null; // Reset promise on error
-    throw e;
-  }
 
+  cached.conn = await cached.promise
   return cached.conn;
 }
-
-// 3. This now matches the function name above
 export default connectDB;
