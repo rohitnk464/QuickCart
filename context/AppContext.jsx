@@ -24,6 +24,16 @@ export const AppContextProvider = (props) => {
   const [isSeller, setIsSeller] = useState(false);
   const [cartItems, setCartItems] = useState({});
 
+  // ================= CHECK SELLER ROLE =================
+  useEffect(() => {
+    if (isLoaded && user) {
+      const role = user?.publicMetadata?.role;
+      setIsSeller(role === 'seller');
+    } else {
+      setIsSeller(false);
+    }
+  }, [user, isLoaded]);
+
   // ================= PRODUCTS =================
   const fetchProductData = async () => {
     try {
