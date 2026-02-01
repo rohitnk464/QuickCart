@@ -1,5 +1,7 @@
-import { inngest } from "@/config/inngest";
+import connectDB from "@/config/db";
 import Product from "@/models/Product";
+import User from "@/models/User";
+import Order from "@/models/Order";
 import { getAuth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
@@ -8,33 +10,42 @@ export async function POST(request) {
     const { userId } = getAuth(request);
     const { address, items } = await request.json();
 
-    if (!address || items.length === 0) {
-      return NextResponse.json({ success: false, message: 'Invalid data' });
+    if (!userId || !address || !items || items.length === 0) {
+      return NextResponse.json({ success: false, message: "Invalid data" });
     }
 
-    // calculate amount using items
-    const amount = await items.reduce(async (acc, item) => {
+    await connectDB();
+
+    let amount = 0;
+
+    for (const item of items) {
       const product = await Product.findById(item.product);
-      return acc + product.offer*item.quantity;
-  },0)
-   
-  await inngest.send({
-    name: "order/created",
-    data: {
+      if (!product) continue;
+      amount += product.offerPrice * item.quantity;
+    }
+
+    const order = await Order.create({
       userId,
       address,
       items,
-      amount:amount+Math.floor(amount*0.02),
+      amount: amount + Math.floor(amount * 0.02),
+      date: Date.now(),
+    });
+
+    const user = await User.findOne({ clerkId: userId });
+    if (user) {
+      user.cartItems = {};
+      await user.save();
     }
-  })
 
-  const user = await User.findById(userId)
-  user.cartItems={}
-    await user.save()
+    return NextResponse.json({
+      success: true,
+      message: "Order placed successfully",
+      order,
+    });
 
-    return NextResponse.json({ success: true, message: 'Order placed successfully' });
   } catch (error) {
-    console.error(error);
+    console.error("CREATE ORDER ERROR:", error);
     return NextResponse.json({ success: false, message: error.message });
   }
 }
