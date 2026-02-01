@@ -21,6 +21,7 @@ const Cart = () => {
             </p>
             <p className="text-lg md:text-xl text-gray-500/80">{getCartCount()} Items</p>
           </div>
+
           <div className="overflow-x-auto">
             <table className="min-w-full table-auto">
               <thead className="text-left">
@@ -39,6 +40,7 @@ const Cart = () => {
                   </th>
                 </tr>
               </thead>
+
               <tbody>
                 {Object.keys(cartItems).map((itemId) => {
                   const product = products.find(product => product._id === itemId);
@@ -51,13 +53,14 @@ const Cart = () => {
                         <div>
                           <div className="rounded-lg overflow-hidden bg-gray-500/10 p-2">
                             <Image
-                              src={product.image[0]}
+                              src={product.images?.[0] || assets.upload_area}
                               alt={product.name}
                               className="w-16 h-auto object-cover mix-blend-multiply"
                               width={1280}
                               height={720}
                             />
                           </div>
+
                           <button
                             className="md:hidden text-xs text-orange-600 mt-1"
                             onClick={() => updateCartQuantity(product._id, 0)}
@@ -65,6 +68,7 @@ const Cart = () => {
                             Remove
                           </button>
                         </div>
+
                         <div className="text-sm hidden md:block">
                           <p className="text-gray-800">{product.name}</p>
                           <button
@@ -75,7 +79,11 @@ const Cart = () => {
                           </button>
                         </div>
                       </td>
-                      <td className="py-4 md:px-4 px-1 text-gray-600">₹{product.offerPrice}</td>
+
+                      <td className="py-4 md:px-4 px-1 text-gray-600">
+                        ₹{product.offerPrice}
+                      </td>
+
                       <td className="py-4 md:px-4 px-1">
                         <div className="flex items-center md:gap-2 gap-1">
                           <button onClick={() => updateCartQuantity(product._id, cartItems[itemId] - 1)}>
@@ -85,7 +93,14 @@ const Cart = () => {
                               className="w-4 h-4"
                             />
                           </button>
-                          <input onChange={e => updateCartQuantity(product._id, Number(e.target.value))} type="number" value={cartItems[itemId]} className="w-8 border text-center appearance-none"></input>
+
+                          <input
+                            onChange={e => updateCartQuantity(product._id, Number(e.target.value))}
+                            type="number"
+                            value={cartItems[itemId]}
+                            className="w-8 border text-center appearance-none"
+                          />
+
                           <button onClick={() => addToCart(product._id)}>
                             <Image
                               src={assets.increase_arrow}
@@ -95,14 +110,21 @@ const Cart = () => {
                           </button>
                         </div>
                       </td>
-                      <td className="py-4 md:px-4 px-1 text-gray-600">₹{(product.offerPrice * cartItems[itemId]).toFixed(2)}</td>
+
+                      <td className="py-4 md:px-4 px-1 text-gray-600">
+                        ₹{(product.offerPrice * cartItems[itemId]).toFixed(2)}
+                      </td>
                     </tr>
                   );
                 })}
               </tbody>
             </table>
           </div>
-          <button onClick={()=> router.push('/all-products')} className="group flex items-center mt-6 gap-2 text-orange-600">
+
+          <button
+            onClick={() => router.push('/all-products')}
+            className="group flex items-center mt-6 gap-2 text-orange-600"
+          >
             <Image
               className="group-hover:-translate-x-1 transition"
               src={assets.arrow_right_icon_colored}
@@ -111,6 +133,7 @@ const Cart = () => {
             Continue Shopping
           </button>
         </div>
+
         <OrderSummary />
       </div>
     </>
