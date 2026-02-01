@@ -1,24 +1,25 @@
 'use client'
 
 import React, { useEffect, useState } from "react";
-import { useAppContext } from "@/context/AppContext";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useAppContext } from "@/context/AppContext";
 
 const OrderSummary = () => {
-
   const {
     currency,
     router,
     getCartCount,
     getCartAmount,
     getToken,
-    user
+    user,
+    cartItems,
+    setCartItems
   } = useAppContext();
 
   const [selectedAddress, setSelectedAddress] = useState(null);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [userAddresses, setUserAddresses] = useState([]);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const fetchUserAddresses = async () => {
     try {
@@ -35,9 +36,8 @@ const OrderSummary = () => {
       } else {
         toast.error(data.message);
       }
-
     } catch (error) {
-      toast.error(error.response?.data?.message || error.message);
+      toast.error(error.message);
     }
   };
 
@@ -47,13 +47,40 @@ const OrderSummary = () => {
   };
 
   const createOrder = async () => {
-    if (!selectedAddress) {
-      toast.error("Please select address");
-      return;
-    }
+    try {
+      if (!selectedAddress) {
+        return toast.error("Please select an address");
+      }
 
-    toast.success("Order placed (demo)");
-    router.push("/");
+      let cartItemsArray = Object.keys(cartItems).map(key => ({
+        product: key,
+        quantity: cartItems[key]
+      })).filter(item => item.quantity > 0);
+
+      if (cartItemsArray.length === 0) {
+        return toast.error("Your cart is empty");
+      }
+
+      const token = await getToken();
+
+      const { data } = await axios.post('/api/order/create', {
+        address: selectedAddress._id,
+        items: cartItemsArray
+      }, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+
+      if (data.success) {
+        toast.success(data.message);
+        setCartItems({});
+        router.push('/my-orders');   // ✅ THIS IS THE FIX
+      } else {
+        toast.error(data.message);
+      }
+
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   useEffect(() => {
@@ -67,10 +94,10 @@ const OrderSummary = () => {
       <h2 className="text-xl md:text-2xl font-medium text-gray-700">
         Order Summary
       </h2>
+
       <hr className="border-gray-500/30 my-5" />
 
       <div className="space-y-6">
-
         {/* ADDRESS */}
         <div>
           <label className="text-base font-medium uppercase text-gray-600 block mb-2">
@@ -88,16 +115,6 @@ const OrderSummary = () => {
                   ? `${selectedAddress.fullName}, ${selectedAddress.area}, ${selectedAddress.city}, ${selectedAddress.state}`
                   : "Select Address"}
               </span>
-
-              <svg
-                className={`w-5 h-5 inline float-right transition-transform duration-200 ${isDropdownOpen ? "rotate-0" : "-rotate-90"}`}
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="#6B7280"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-              </svg>
             </button>
 
             {isDropdownOpen && (
@@ -123,46 +140,23 @@ const OrderSummary = () => {
           </div>
         </div>
 
-        {/* PROMO */}
-        <div>
-          <label className="text-base font-medium uppercase text-gray-600 block mb-2">
-            Promo Code
-          </label>
-          <div className="flex flex-col items-start gap-3">
-            <input
-              type="text"
-              placeholder="Enter promo code"
-              className="flex-grow w-full outline-none p-2.5 text-gray-600 border"
-            />
-            <button className="bg-orange-600 text-white px-9 py-2 hover:bg-orange-700">
-              Apply
-            </button>
-          </div>
-        </div>
-
         <hr className="border-gray-500/30 my-5" />
 
         {/* TOTAL */}
         <div className="space-y-4">
           <div className="flex justify-between text-base font-medium">
-            <p className="uppercase text-gray-600">Items {getCartCount()}</p>
-            <p className="text-gray-800">{currency}{getCartAmount()}</p>
+            <p>Items {getCartCount()}</p>
+            <p>{currency}{getCartAmount()}</p>
           </div>
+
           <div className="flex justify-between">
-            <p className="text-gray-600">Shipping Fee</p>
-            <p className="font-medium text-gray-800">Free</p>
+            <p>Tax (2%)</p>
+            <p>{currency}{Math.floor(getCartAmount() * 0.02)}</p>
           </div>
-          <div className="flex justify-between">
-            <p className="text-gray-600">Tax (2%)</p>
-            <p className="font-medium text-gray-800">
-              {currency}{Math.floor(getCartAmount() * 0.02)}
-            </p>
-          </div>
-          <div className="flex justify-between text-lg md:text-xl font-medium border-t pt-3">
+
+          <div className="flex justify-between text-lg font-medium border-t pt-3">
             <p>Total</p>
-            <p>
-              {currency}{getCartAmount() + Math.floor(getCartAmount() * 0.02)}
-            </p>
+            <p>{currency}{getCartAmount() + Math.floor(getCartAmount() * 0.02)}</p>
           </div>
         </div>
       </div>
