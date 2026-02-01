@@ -40,32 +40,28 @@ export const AppContextProvider = (props) => {
 
   // ================= USER =================
   const fetchUserData = async () => {
-    try {
-      if (user?.publicMetadata?.role === 'seller') {
-        setIsSeller(true);
-      } else {
-        setIsSeller(false);
-      }
+  try {
+    const token = await getToken();
+    if (!token) return;
 
-      const token = await getToken();
-      if (!token) return;
+    const { data } = await axios.get('/api/user/data', {
+      headers: { Authorization: `Bearer ${token}` }
+    });
 
-      const { data } = await axios.get('/api/user/data', {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-
-      if (data.success) {
-        setUserData(data.user);
-        setCartItems(data.user.cartItems || {});
-      } else {
-        toast.error(data.message);
-      }
-
-    } catch (error) {
-      console.error(error);
-      toast.error(error.response?.data?.message || "Something went wrong");
+    if (data.success && data.user) {
+      setUserData(data.user);
+      setCartItems(data.user.cartItems || {}); // ✅ SAFE
+    } else {
+      setUserData(null);
+      setCartItems({}); // ✅ prevent crash
     }
-  };
+
+  } catch (error) {
+    console.error("fetchUserData error:", error);
+    setCartItems({}); // ✅ fallback
+  }
+};
+
 
   // ================= CART =================
   const addToCart = async (itemId) => {
