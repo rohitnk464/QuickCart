@@ -1,5 +1,3 @@
-Alright bro, let’s package your project nicely for GitHub 💪
-Here is a **clean, professional README.md** you can directly copy-paste.
 
 ---
 
