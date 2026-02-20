@@ -5,7 +5,7 @@ import { useAppContext } from '@/context/AppContext';
 
 const ProductCard = ({ product }) => {
 
-    const { currency, router } = useAppContext();
+    const { currency, router, addToCart } = useAppContext();
 
     const imageUrl =
         product?.images && product.images.length > 0
@@ -15,9 +15,19 @@ const ProductCard = ({ product }) => {
     return (
         <div
             onClick={() => { router.push('/product/' + product._id); scrollTo(0, 0); }}
-            className="flex flex-col items-start gap-0.5 max-w-[200px] w-full cursor-pointer"
+            className="flex flex-col items-start gap-0.5 max-w-[200px] w-full cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 rounded-lg p-2 transition-colors hover:bg-gray-50"
+            role="link"
+            tabIndex={0}
+            aria-label={`View details for ${product.name}`}
+            onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    router.push('/product/' + product._id);
+                    scrollTo(0, 0);
+                }
+            }}
         >
-            <div className="cursor-pointer group relative bg-gray-500/10 rounded-lg w-full h-52 flex items-center justify-center">
+            <div className="cursor-pointer group relative bg-gray-500/10 rounded-lg w-full h-52 flex items-center justify-center overflow-hidden">
                 <Image
                     src={imageUrl}
                     alt={product.name}
@@ -25,11 +35,16 @@ const ProductCard = ({ product }) => {
                     width={800}
                     height={800}
                 />
-                <button className="absolute top-2 right-2 bg-white p-2 rounded-full shadow-md">
+                <button
+                    className="absolute top-2 right-2 bg-white p-2 rounded-full shadow-md hover:bg-gray-100 transition focus:outline-none focus:ring-2 focus:ring-gray-500"
+                    aria-label="Add to wishlist"
+                    onClick={(e) => e.stopPropagation()}
+                >
                     <Image
                         className="h-3 w-3"
                         src={assets.heart_icon}
-                        alt="heart_icon"
+                        alt=""
+                        aria-hidden="true"
                     />
                 </button>
             </div>
@@ -39,7 +54,7 @@ const ProductCard = ({ product }) => {
 
             <div className="flex items-center gap-2">
                 <p className="text-xs">{4.5}</p>
-                <div className="flex items-center gap-0.5">
+                <div className="flex items-center gap-0.5" aria-label="Rated 4.5 out of 5 stars" role="img">
                     {Array.from({ length: 5 }).map((_, index) => (
                         <Image
                             key={index}
@@ -49,7 +64,8 @@ const ProductCard = ({ product }) => {
                                     ? assets.star_icon
                                     : assets.star_dull_icon
                             }
-                            alt="star_icon"
+                            alt=""
+                            aria-hidden="true"
                         />
                     ))}
                 </div>
@@ -57,7 +73,14 @@ const ProductCard = ({ product }) => {
 
             <div className="flex items-end justify-between w-full mt-1">
                 <p className="text-base font-medium">{currency}{product.offerPrice}</p>
-                <button className="max-sm:hidden px-4 py-1.5 text-gray-500 border border-gray-500/20 rounded-full text-xs hover:bg-slate-50 transition">
+                <button
+                    className="max-sm:hidden px-4 py-1.5 text-gray-500 border border-gray-500/20 rounded-full text-xs hover:bg-slate-50 transition focus:outline-none focus:ring-2 focus:ring-gray-500"
+                    aria-label="Buy now"
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        addToCart(product._id);
+                    }}
+                >
                     Buy now
                 </button>
             </div>
