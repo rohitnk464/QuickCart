@@ -73,6 +73,7 @@ export const AppContextProvider = (props) => {
 };
 
 
+
   // ================= CART =================
   const addToCart = async (itemId) => {
     let cartData = structuredClone(cartItems);
