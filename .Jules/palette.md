@@ -1,0 +1,3 @@
+## 2024-03-01 - Keyboard Accessible Product Cards
+**Learning:** Product cards often use complex layouts with nested interactive elements (like a favorite button or 'Add to cart' button inside the card). Using a standard `<a>` tag to wrap the entire card is invalid HTML when it contains other interactive elements.
+**Action:** When making complex cards clickable and keyboard accessible, use a `div` with `role="link"`, `tabIndex={0}`, an `onClick` handler, and an `onKeyDown` handler (listening for 'Enter' or 'Space'). Ensure nested buttons call `e.stopPropagation()` in their click handlers so they don't trigger the card's main navigation action.
