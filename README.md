@@ -70,17 +70,17 @@ Create a `.env` file in root:
 
 ```env
 NEXT_PUBLIC_CURRENCY=₹
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=<insert_clerk_publishable_key_here>
 
-CLERK_SECRET_KEY=your_clerk_secret_key
+CLERK_SECRET_KEY=<insert_clerk_secret_key_here>
 MONGODB_URI=mongodb://127.0.0.1:27017/quickcart
 
-INNGEST_SIGNING_KEY=your_inngest_signing_key
-INNGEST_EVENT_KEY=your_inngest_event_key
+INNGEST_SIGNING_KEY=<insert_inngest_signing_key_here>
+INNGEST_EVENT_KEY=<insert_inngest_event_key_here>
 
-CLOUDINARY_CLOUD_NAME=your_cloudinary_name
-CLOUDINARY_API_KEY=your_cloudinary_key
-CLOUDINARY_API_SECRET=your_cloudinary_secret
+CLOUDINARY_CLOUD_NAME=<insert_cloudinary_name_here>
+CLOUDINARY_API_KEY=<insert_cloudinary_api_key_here>
+CLOUDINARY_API_SECRET=<insert_cloudinary_api_secret_here>
 ```
 
 ---
