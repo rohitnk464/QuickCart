@@ -1,0 +1,55 @@
+
+> ecommerce-inngest@0.1.0 dev /app
+> next dev --turbopack
+
+▲ Next.js 16.1.6 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.0.2:3000
+
+✓ Starting...
+⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+✓ Ready in 1614ms
+○ Compiling / ...
+
+[35m
+[Clerk]:[0m You are running in keyless mode.
+You can [35mclaim your keys[0m by visiting https://dashboard.clerk.com/apps/claim?token=atlj75twdkp6x8saxjy9tdckjxs30eme6u1eh9v0&return_url=http%3A%2F%2Flocalhost%3A3000%2F
+
+ GET / 200 in 12.1s (compile: 10.2s, proxy.ts: 227ms, render: 1722ms)
+ POST / 200 in 80ms (compile: 13ms, proxy.ts: 25ms, render: 43ms)
+ GET / 200 in 211ms (compile: 23ms, proxy.ts: 101ms, render: 87ms)
+ POST / 303 in 365ms (compile: 11ms, proxy.ts: 21ms, render: 332ms)
+ GET / 200 in 120ms (compile: 19ms, proxy.ts: 41ms, render: 60ms)
+⨯ Error: Please define MONGODB_URI in .env
+    at module evaluation (config/db.js:6:9)
+    at module evaluation (app/api/product/list/route.js:1:1)
+    at Object.<anonymous> (.next/dev/server/app/api/product/list/route.js:5:3)
+  4 |
+  5 | if (!MONGODB_URI) {
+> 6 |   throw new Error("Please define MONGODB_URI in .env");
+    |         ^
+  7 | }
+  8 |
+  9 | let cached = global.mongoose; {
+  page: '/api/product/list'
+}
+ GET /api/product/list 500 in 5.1s (compile: 4.9s, proxy.ts: 28ms, render: 156ms)
+ GET / 200 in 115ms (compile: 8ms, proxy.ts: 8ms, render: 100ms)
+⨯ Error: Please define MONGODB_URI in .env
+    at module evaluation (config/db.js:6:9)
+    at module evaluation (app/api/product/list/route.js:1:1)
+    at Object.<anonymous> (.next/dev/server/app/api/product/list/route.js:5:3)
+  4 |
+  5 | if (!MONGODB_URI) {
+> 6 |   throw new Error("Please define MONGODB_URI in .env");
+    |         ^
+  7 | }
+  8 |
+  9 | let cached = global.mongoose; {
+  page: '/api/product/list'
+}
+ GET /api/product/list 500 in 166ms (compile: 139ms, proxy.ts: 7ms, render: 20ms)
+ POST / 200 in 156ms (compile: 9ms, proxy.ts: 116ms, render: 31ms)
+ GET / 200 in 68ms (compile: 5ms, proxy.ts: 11ms, render: 53ms)
+ POST / 303 in 126ms (compile: 5ms, proxy.ts: 18ms, render: 103ms)
+ GET / 200 in 35ms (compile: 4ms, proxy.ts: 8ms, render: 23ms)
