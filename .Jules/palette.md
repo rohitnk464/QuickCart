@@ -1,0 +1,3 @@
+## 2024-05-15 - Keyboard Accessibility on Clickable Cards
+**Learning:** When making an entire card (e.g., a `div`) clickable for navigation, screen reader users and keyboard navigators are left out unless semantic roles and focus states are provided. Also, nested interactive elements (like buttons) will trigger the parent's navigation unless event bubbling is explicitly stopped.
+**Action:** Always add `role="link"`, `tabIndex={0}`, and an `onKeyDown` handler (listening for Enter/Space) to clickable `div`s. For any nested buttons, add `onClick={(e) => e.stopPropagation()}` to prevent triggering the parent container's click action. Ensure all interactive elements have visible focus states using `focus-visible`.
