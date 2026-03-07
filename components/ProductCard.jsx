@@ -25,7 +25,10 @@ const ProductCard = ({ product }) => {
                     width={800}
                     height={800}
                 />
-                <button className="absolute top-2 right-2 bg-white p-2 rounded-full shadow-md">
+                <button
+                    aria-label="Add to wishlist"
+                    className="absolute top-2 right-2 bg-white p-2 rounded-full shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-600"
+                >
                     <Image
                         className="h-3 w-3"
                         src={assets.heart_icon}
