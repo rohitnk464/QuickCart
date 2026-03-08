@@ -1,0 +1,16 @@
+
+> ecommerce-inngest@0.1.0 dev /app
+> next dev --turbopack
+
+⚠ Port 3000 is in use by an unknown process, using available port 3001 instead.
+▲ Next.js 16.1.6 (Turbopack)
+- Local:         http://localhost:3001
+- Network:       http://192.168.0.2:3001
+
+✓ Starting...
+⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+✓ Ready in 1804ms
+⨯ Error: @clerk/nextjs: Missing secretKey. You can get your key at https://dashboard.clerk.com/last-active?path=api-keys.
+    at ignore-listed frames
+ GET /all-products 404 in 1757ms (compile: -150216µs, proxy.ts: 1746ms, render: 162ms)
+○ Compiling /_not-found/page ...

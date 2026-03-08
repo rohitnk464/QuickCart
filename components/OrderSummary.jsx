@@ -20,6 +20,7 @@ const OrderSummary = () => {
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [userAddresses, setUserAddresses] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isOrdering, setIsOrdering] = useState(false);
 
   const fetchUserAddresses = async () => {
     try {
@@ -61,6 +62,8 @@ const OrderSummary = () => {
         return toast.error("Your cart is empty");
       }
 
+      setIsOrdering(true);
+
       const token = await getToken();
 
       const { data } = await axios.post('/api/order/create', {
@@ -80,6 +83,8 @@ const OrderSummary = () => {
 
     } catch (error) {
       toast.error(error.message);
+    } finally {
+      setIsOrdering(false);
     }
   };
 
@@ -163,9 +168,10 @@ const OrderSummary = () => {
 
       <button
         onClick={createOrder}
-        className="w-full bg-orange-600 text-white py-3 mt-5 hover:bg-orange-700"
+        disabled={isOrdering}
+        className="w-full bg-orange-600 text-white py-3 mt-5 hover:bg-orange-700 disabled:bg-orange-400 disabled:cursor-not-allowed transition"
       >
-        Place Order
+        {isOrdering ? 'Placing Order...' : 'Place Order'}
       </button>
     </div>
   );
