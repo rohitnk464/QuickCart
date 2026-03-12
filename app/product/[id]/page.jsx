@@ -74,15 +74,15 @@ const Product = () => {
             </h1>
 
             <div className="flex items-center gap-2">
-              <div className="flex items-center gap-0.5">
-                <Image className="h-4 w-4" src={assets.star_icon} alt="star" />
-                <Image className="h-4 w-4" src={assets.star_icon} alt="star" />
-                <Image className="h-4 w-4" src={assets.star_icon} alt="star" />
-                <Image className="h-4 w-4" src={assets.star_icon} alt="star" />
+              <div aria-hidden="true" className="flex items-center gap-0.5">
+                <Image className="h-4 w-4" src={assets.star_icon} alt="" />
+                <Image className="h-4 w-4" src={assets.star_icon} alt="" />
+                <Image className="h-4 w-4" src={assets.star_icon} alt="" />
+                <Image className="h-4 w-4" src={assets.star_icon} alt="" />
                 <Image
                   className="h-4 w-4"
                   src={assets.star_dull_icon}
-                  alt="star"
+                  alt=""
                 />
               </div>
               <p>(4.5)</p>
