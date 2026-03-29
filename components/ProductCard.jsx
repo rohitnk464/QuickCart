@@ -25,7 +25,7 @@ const ProductCard = ({ product }) => {
                     width={800}
                     height={800}
                 />
-                <button className="absolute top-2 right-2 bg-white p-2 rounded-full shadow-md">
+                <button aria-label="Add to wishlist" onClick={(e) => e.stopPropagation()} className="absolute top-2 right-2 bg-white p-2 rounded-full shadow-md">
                     <Image
                         className="h-3 w-3"
                         src={assets.heart_icon}
@@ -39,7 +39,7 @@ const ProductCard = ({ product }) => {
 
             <div className="flex items-center gap-2">
                 <p className="text-xs">{4.5}</p>
-                <div className="flex items-center gap-0.5">
+                <div aria-hidden="true" className="flex items-center gap-0.5">
                     {Array.from({ length: 5 }).map((_, index) => (
                         <Image
                             key={index}
@@ -49,7 +49,7 @@ const ProductCard = ({ product }) => {
                                     ? assets.star_icon
                                     : assets.star_dull_icon
                             }
-                            alt="star_icon"
+                            alt=""
                         />
                     ))}
                 </div>
