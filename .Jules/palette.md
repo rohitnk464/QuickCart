@@ -1,0 +1,3 @@
+## 2024-03-31 - [Nesting Interactive Elements in Clickable Containers]
+**Learning:** When interactive elements like "Add to wishlist" or "Buy now" buttons are placed inside a container (like a ProductCard) that handles primary navigation via `onClick`, clicks on the nested buttons trigger the parent container's click event due to event bubbling. Also, for accessibility, images that visually represent text adjacent to them (like star ratings next to a "4.5" text) cause redundant announcements.
+**Action:** Always add `onClick={(e) => e.stopPropagation()}` to interactive elements nested inside clickable containers. Additionally, hide redundant visual representations with `aria-hidden="true"` on the parent container and `alt=""` on the individual images.
