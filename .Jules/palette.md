@@ -1,0 +1,3 @@
+## 2024-05-24 - Redundant Screen Reader Output on Visual Star Ratings & Nested Buttons in Cards
+**Learning:** In `ProductCard.jsx`, visual star ratings were being read out redundantly by screen readers ("star_icon" repeated 5 times) alongside the text rating. Also, an interactive wishlist button nested inside a clickable card (`div` with `onClick`) caused accidental navigation when the button was clicked.
+**Action:** Always add `aria-hidden="true"` to containers holding visual representations of text data (like star rating images) and use empty `alt=""` attributes for those images. When placing buttons inside clickable containers, add `onClick={(e) => e.stopPropagation()}` to prevent event bubbling.
