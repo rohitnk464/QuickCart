@@ -1,11 +1,12 @@
 import React from 'react'
 import { assets } from '@/assets/assets'
 import Image from 'next/image';
+import Link from 'next/link';
 import { useAppContext } from '@/context/AppContext';
 
 const ProductCard = ({ product }) => {
 
-    const { currency, router } = useAppContext();
+    const { currency, addToCart } = useAppContext();
 
     const imageUrl =
         product?.images && product.images.length > 0
@@ -13,11 +14,16 @@ const ProductCard = ({ product }) => {
             : assets.upload_area; // fallback image
 
     return (
-        <div
-            onClick={() => { router.push('/product/' + product._id); scrollTo(0, 0); }}
-            className="flex flex-col items-start gap-0.5 max-w-[200px] w-full cursor-pointer"
-        >
-            <div className="cursor-pointer group relative bg-gray-500/10 rounded-lg w-full h-52 flex items-center justify-center">
+        <div className="flex flex-col items-start gap-0.5 max-w-[200px] w-full relative group">
+
+            {/* Stretched Link for Card Navigation */}
+            <Link
+                href={'/product/' + product._id}
+                className="absolute inset-0 z-10"
+                aria-label={`View details for ${product.name}`}
+            />
+
+            <div className="group relative bg-gray-500/10 rounded-lg w-full h-52 flex items-center justify-center">
                 <Image
                     src={imageUrl}
                     alt={product.name}
@@ -25,7 +31,10 @@ const ProductCard = ({ product }) => {
                     width={800}
                     height={800}
                 />
-                <button className="absolute top-2 right-2 bg-white p-2 rounded-full shadow-md">
+                <button
+                    className="absolute top-2 right-2 bg-white p-2 rounded-full shadow-md z-20 relative hover:bg-gray-100 transition"
+                    aria-label="Add to wishlist"
+                >
                     <Image
                         className="h-3 w-3"
                         src={assets.heart_icon}
@@ -57,7 +66,11 @@ const ProductCard = ({ product }) => {
 
             <div className="flex items-end justify-between w-full mt-1">
                 <p className="text-base font-medium">{currency}{product.offerPrice}</p>
-                <button className="max-sm:hidden px-4 py-1.5 text-gray-500 border border-gray-500/20 rounded-full text-xs hover:bg-slate-50 transition">
+                <button
+                    onClick={(e) => { e.preventDefault(); addToCart(product._id); }}
+                    className="max-sm:hidden px-4 py-1.5 text-gray-500 border border-gray-500/20 rounded-full text-xs hover:bg-slate-50 transition z-20 relative"
+                    aria-label="Add to cart"
+                >
                     Buy now
                 </button>
             </div>
