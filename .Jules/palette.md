@@ -1,0 +1,3 @@
+## 2025-01-27 - ProductCard Stretched Link Regression
+**Learning:** When replacing a container `onClick` with an overlay `Link` (stretched link pattern) for better accessibility, nested interactive elements (buttons) that previously relied on event bubbling to the container will break. The overlay link is a sibling, so it doesn't capture clicks on the buttons (which are z-indexed higher), and the container no longer handles the click.
+**Action:** Always add explicit `onClick` handlers to nested interactive elements when refactoring to the stretched link pattern, ensuring they perform the intended action (or navigation) directly.
