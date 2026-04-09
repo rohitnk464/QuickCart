@@ -1,0 +1,4 @@
+
+## 2025-02-12 - Product Card Interactive Nesting and A11y
+**Learning:** In clickable container cards (like `ProductCard.jsx`), nested interactive elements (like a wishlist button) must use `onClick={(e) => e.stopPropagation()}` to avoid triggering the parent `onClick` action (e.g. unintended navigation). Additionally, visually redundant images like repeated star rating icons or decorative heart buttons should be hidden from screen readers using `aria-hidden="true"` on their container or empty `alt=""` attributes.
+**Action:** When adding interactive elements like wishlist or action buttons inside a clickable component, always add `stopPropagation()`. Check all icon buttons and redundant images to ensure they either have a descriptive `aria-label` or an empty `alt=""` text to maintain accessibility.
