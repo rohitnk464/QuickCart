@@ -1,0 +1,3 @@
+## 2026-02-28 - Newsletter Component Form Semantics
+**Learning:** The Newsletter component was implemented using a <div> wrapper instead of a <form> element. This prevents users from being able to submit the newsletter subscription form by pressing the 'Enter' key, forcing mouse interaction. The input was also a generic 'text' type rather than 'email' and missing required ARIA labels, missing focus/hover interactions.
+**Action:** Use native HTML semantics (<form>, <input type='email' required>) with proper submit handlers preventing default behavior. Ensure interactive elements use explicit aria-labels and keyboard-friendly focus styles like focus-visible.
