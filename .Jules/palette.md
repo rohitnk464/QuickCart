@@ -1,0 +1,3 @@
+## 2024-04-15 - ProductCard Interaction Boundaries and Rating Accessibility
+**Learning:** The `ProductCard` component functions as a large clickable area but contains nested interactive elements (wishlist button). Nesting interactive elements is a severe WCAG accessibility violation. Furthermore, visual star ratings paired with text-based ratings cause redundant announcements for screen readers if not properly hidden.
+**Action:** Never add `role="button"` to the outer clickable `div` of `ProductCard`. Always apply `onClick={(e) => e.stopPropagation()}` to nested interactive elements to isolate their click events. Use `aria-hidden="true"` on star rating containers and empty `alt=""` attributes on the individual star images to prevent screen reader redundancy.
