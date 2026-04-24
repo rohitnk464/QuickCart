@@ -1,0 +1,3 @@
+## 2026-04-24 - [Accessible Clickable Containers]
+**Learning:** Adding nested clickable elements (like wishlist or 'buy now' buttons) inside an interactive container (like a product card navigating to details) causes unintended routing if click propagation is not stopped. Additionally, using `aria-hidden='true'` on visual rating stars prevents screen readers from redundantly announcing each star alongside the textual rating.
+**Action:** Always apply `onClick={(e) => e.stopPropagation()}` to interactive children inside clickable parents. Group decorative icons with `aria-hidden='true'` and empty `alt` texts when their meaning is covered by adjacent text.
