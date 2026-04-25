@@ -1,0 +1,3 @@
+## 2024-11-20 - Product Card Interactive Elements & Accessible Star Ratings
+**Learning:** Nested interactive elements within clickable cards need `e.stopPropagation()` to prevent unintended parent navigation (like routing to a product page when clicking a wishlist button). Visual star ratings paired with text ratings should use `aria-hidden="true"` and empty `alt` attributes to avoid redundant screen reader announcements.
+**Action:** Always verify parent container event handlers when adding interactive UI features to cards. For visual paired ratings, rely on the text content for screen readers and hide the decorative UI elements from the accessibility tree.
