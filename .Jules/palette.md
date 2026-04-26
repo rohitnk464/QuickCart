@@ -1,0 +1,3 @@
+## 2024-04-26 - Accessible Star Ratings & Nested Interaction
+**Learning:** Visual star ratings accompanied by text ratings cause screen readers to redundantly announce "star icon" multiple times. Additionally, interactive elements (like wishlist buttons) nested inside clickable cards trigger the parent's navigation event, causing severe usability issues.
+**Action:** Always add `aria-hidden="true"` to visual-only star rating containers and use empty `alt=""` for individual stars. For nested interactive elements within clickable containers, always apply `onClick={(e) => e.stopPropagation()}` to prevent unintended parent triggering.
