@@ -1,0 +1,3 @@
+## 2025-05-02 - [Fix Event Propagation & Redundant Screen-Reader Announcements in Interactive Containers]
+**Learning:** Placing interactive elements (buttons) inside an interactive container (`div` with `onClick`) triggers the container's event by default, leading to bad UX like unwanted navigation. Also, visual star ratings built with individual image tags cause screen readers to redundantly announce "star" multiple times if not hidden from the accessibility tree.
+**Action:** Always use `e.stopPropagation()` on nested interactive buttons inside a clickable container. Pair visual star ratings with a text rating (`aria-label`) and hide the entire image container using `aria-hidden="true"` and `alt=""` on individual icons.

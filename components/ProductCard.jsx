@@ -5,7 +5,7 @@ import { useAppContext } from '@/context/AppContext';
 
 const ProductCard = ({ product }) => {
 
-    const { currency, router } = useAppContext();
+    const { currency, router, addToCart } = useAppContext();
 
     const imageUrl =
         product?.images && product.images.length > 0
@@ -25,11 +25,15 @@ const ProductCard = ({ product }) => {
                     width={800}
                     height={800}
                 />
-                <button className="absolute top-2 right-2 bg-white p-2 rounded-full shadow-md">
+                <button
+                    aria-label="Add to wishlist"
+                    onClick={(e) => { e.stopPropagation(); }}
+                    className="absolute top-2 right-2 bg-white p-2 rounded-full shadow-md hover:bg-gray-50 focus-visible:ring-2 focus-visible:outline-none transition"
+                >
                     <Image
                         className="h-3 w-3"
                         src={assets.heart_icon}
-                        alt="heart_icon"
+                        alt=""
                     />
                 </button>
             </div>
@@ -38,8 +42,8 @@ const ProductCard = ({ product }) => {
             <p className="w-full text-xs text-gray-500/70 max-sm:hidden truncate">{product.description}</p>
 
             <div className="flex items-center gap-2">
-                <p className="text-xs">{4.5}</p>
-                <div className="flex items-center gap-0.5">
+                <p className="text-xs" aria-label="Rating: 4.5 out of 5 stars">{4.5}</p>
+                <div className="flex items-center gap-0.5" aria-hidden="true">
                     {Array.from({ length: 5 }).map((_, index) => (
                         <Image
                             key={index}
@@ -49,7 +53,7 @@ const ProductCard = ({ product }) => {
                                     ? assets.star_icon
                                     : assets.star_dull_icon
                             }
-                            alt="star_icon"
+                            alt=""
                         />
                     ))}
                 </div>
@@ -57,7 +61,11 @@ const ProductCard = ({ product }) => {
 
             <div className="flex items-end justify-between w-full mt-1">
                 <p className="text-base font-medium">{currency}{product.offerPrice}</p>
-                <button className="max-sm:hidden px-4 py-1.5 text-gray-500 border border-gray-500/20 rounded-full text-xs hover:bg-slate-50 transition">
+                <button
+                    aria-label={`Buy ${product.name} now`}
+                    onClick={(e) => { e.stopPropagation(); addToCart(product._id); }}
+                    className="max-sm:hidden px-4 py-1.5 text-gray-500 border border-gray-500/20 rounded-full text-xs hover:bg-slate-50 focus-visible:ring-2 focus-visible:outline-none transition"
+                >
                     Buy now
                 </button>
             </div>
