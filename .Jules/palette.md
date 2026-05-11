@@ -1,0 +1,3 @@
+## 2024-05-11 - Nested Interactive Elements in Product Cards
+**Learning:** The ProductCard component wraps the entire card in a clickable div for navigation, which creates a severe WCAG violation if nested interactive elements (like wishlist or buy buttons) are added without event propagation handling. Furthermore, adding role='button' to the outer div is incorrect due to these nested buttons.
+**Action:** Always add `onClick={(e) => e.stopPropagation()}` to nested buttons within clickable container elements to prevent parent click events from firing. Avoid adding role='button' to containers with nested interactive elements.
