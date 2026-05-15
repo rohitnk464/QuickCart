@@ -1,0 +1,3 @@
+## 2026-05-15 - ProductCard Accessibility and Interaction Fixes
+**Learning:** Nested interactive elements (like wishlist or Buy Now buttons) inside a clickable card require `e.stopPropagation()` to prevent the parent container's click events from triggering unintentionally. Additionally, visual star ratings require `aria-hidden="true"` on their container with empty `alt` text on individual stars to prevent screen readers from redundantly announcing each star alongside the text-based rating.
+**Action:** Always verify interaction isolation for nested buttons in cards and ensure decorative visual ratings are hidden from assistive tech when text equivalents exist.
