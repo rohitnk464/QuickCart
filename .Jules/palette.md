@@ -1,0 +1,3 @@
+## 2024-05-25 - Redundant Screen Reader Output on Ratings and Nested Click Handlers
+**Learning:** In e-commerce card components, visual star ratings paired with numeric text cause redundant announcements if both are readable. Additionally, buttons placed inside a clickable wrapper (like a product card) unintentionally trigger parent navigation if event propagation is not stopped.
+**Action:** Always use `aria-hidden="true"` on the visual rating container and `alt=""` on individual star images when paired with a visible numeric rating. Also, always add `onClick={(e) => e.stopPropagation()}` to any interactive elements nested within a clickable block-level link or div.
