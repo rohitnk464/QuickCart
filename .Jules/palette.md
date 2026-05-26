@@ -1,0 +1,3 @@
+## 2024-05-15 - Event Propagation in Nested Clickable Components
+**Learning:** In e-commerce product cards where the entire card acts as a navigation link, nesting interactive elements (like a "Buy Now" or "Wishlist" button) inside the card `div` creates an accessibility and interaction issue. Clicking the inner button unintentionally triggers the outer container's routing logic.
+**Action:** Always add `onClick={(e) => e.stopPropagation()}` to any nested interactive elements within a parent container that also handles click events (like navigation). Additionally, never add `role="button"` to the outer container when it holds nested buttons, as this violates WCAG guidelines for nested interactive elements.
