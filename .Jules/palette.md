@@ -1,0 +1,3 @@
+## 2024-05-16 - ProductCard Accessibility and Nested Interactions
+**Learning:** Visual star ratings require an explicit `aria-hidden="true"` container and empty `alt` attributes to avoid repetitive screen reader announcements when paired with text ratings. Nested interactive elements (like a wishlist button or "Buy now" inside a clickable ProductCard `div`) must explicitly call `e.stopPropagation()` on `onClick` to prevent parent navigation events from triggering.
+**Action:** When creating visual representation of numbers or text ratings, hide the visuals from screen readers. When nesting buttons inside a clickable element, always stop event propagation to avoid user navigation errors.
