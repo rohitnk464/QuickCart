@@ -1,0 +1,4 @@
+
+## 2024-05-30 - Prevent Nested Click Events & Redundant Visual Ratings
+**Learning:** In React components where a large container acts as a clickable navigation link (like a Product Card), any nested interactive elements (like a wishlist button or "Buy now" action) will trigger the parent's `onClick` unless their events are explicitly stopped. Additionally, when a text-based rating (like "4.5") is displayed next to a visual star rating representation, screen readers will redundantly announce each individual star image's alt text, causing a poor accessibility experience.
+**Action:** When adding nested interactive elements inside a clickable container, always apply `onClick={(e) => e.stopPropagation()}` to those child elements. For visual star ratings that accompany a text rating, wrap the stars in a container with `aria-hidden="true"` and give the individual star images an empty `alt=""` attribute to remove them from the accessibility tree.
