@@ -1,0 +1,3 @@
+## 2024-06-03 - Accessible Product Cards and nested interactive elements
+**Learning:** When building clickable card components (like ProductCard) that contain nested interactive elements (like a wishlist or 'Buy now' button), click events bubble up to the parent container, leading to unintended navigation. Furthermore, omitting focus states on these nested elements hides them from keyboard users, and redundant star rating images clutter the screen reader experience.
+**Action:** Always apply `e.stopPropagation()` to `onClick` handlers on interactive elements nested inside clickable containers. Always apply `focus-visible:ring-2` for keyboard navigation, and set `aria-hidden="true"` with `alt=""` on redundant visual components like star ratings.
