@@ -1,0 +1,3 @@
+## 2024-04-20 - ProductCard Component Accessibility Improvements
+**Learning:** Found an accessibility issue pattern specific to this app's components: nested interactive elements (wishlist button inside clickable product card div) lack `stopPropagation`, which causes unintended parent triggers. Also found redundant image/text rating announcements where star icons had descriptive alt text next to a text-based rating.
+**Action:** Always add `onClick={(e) => e.stopPropagation()}` to interactive elements within clickable containers in this application to prevent WCAG nesting violations/issues. Always hide visual star ratings paired with text ratings by using `aria-hidden="true"` on the container and `alt=""` on the individual star images.
