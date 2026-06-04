@@ -1,0 +1,3 @@
+## 2024-05-28 - Preventing Click Bleed in Nested Interactive Elements
+**Learning:** In Next.js components where an entire card is clickable (like `ProductCard.jsx`), nested interactive elements (buttons, icons) will unintentionally trigger the parent card's navigation if not handled. Additionally, visual-only ratings (stars paired with text ratings) cause redundant screen reader noise if not explicitly hidden.
+**Action:** Always apply `e.stopPropagation()` on nested buttons/icons within clickable cards to isolate their interactions, and use `aria-hidden="true"` on wrapper divs for visual ratings to streamline the screen reader experience.
