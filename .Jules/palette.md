@@ -1,0 +1,3 @@
+## 2024-05-18 - [Accessibility fixes for clickable elements]
+**Learning:** When dealing with nested interactive elements like buttons ("Wishlist", "Buy now") inside an overarching clickable container (`<div onClick="...">`), adding `onClick={(e) => e.stopPropagation()}` prevents the nested buttons from unintentionally triggering the parent element's logic. Also, when pairing visual components (e.g., star images) with explicit text details (e.g., numeric rating), applying `aria-hidden="true"` to the image container and using `alt=""` prevents screen reader redundancy.
+**Action:** Apply `stopPropagation()` on all nested buttons and suppress repetitive screen reader announcements on purely illustrative images when descriptive text already exists.
