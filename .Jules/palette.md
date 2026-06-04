@@ -1,0 +1,3 @@
+## 2026-03-08 - Async Feedback and Accessibility labels for Cart
+**Learning:** Icon-only buttons in the cart and checkout process often lack explicit screen-reader contexts, and checkout buttons without a loading state can lead to duplicate submission attempts. Adding simple `aria-label` attributes and disabling the 'Place Order' button while an async operation is underway resolves significant interaction barriers with minimal code changes.
+**Action:** Always verify that actionable icon-only elements (like +/-, remove, or heart icons) have descriptive `aria-label` attributes, and ensure primary form submission buttons have an active loading state that disables the button to prevent duplicate clicks.
