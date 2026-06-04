@@ -1,0 +1,3 @@
+## 2024-05-06 - [Nested Interactive Elements in Next.js App Router]
+**Learning:** Adding interactive elements (like a wishlist `<button>`) inside a clickable wrapper container (like the outer `ProductCard` `div`) causes event bubbling where clicking the inner button also triggers the outer navigation. Furthermore, adding `role="button"` to the wrapper to fix focus issues breaks accessibility because nesting interactive elements is a severe WCAG violation.
+**Action:** Use `onClick={(e) => e.stopPropagation()}` on the inner interactive elements to prevent unintended triggering of the parent container's click events. Avoid adding `role="button"` on the parent wrapper; let it remain a generic structural element if it must wrap other buttons.
