@@ -1,0 +1,3 @@
+## 2025-05-22 - Nested Interactive Elements in Product Cards
+**Learning:** In the `ProductCard` component, placing interactive elements like wishlist buttons inside a clickable container div triggers the parent container's navigation event when interacted with, creating a frustrating UX. Screen readers also announce visual star ratings redundantly without proper `aria-hidden` attributes.
+**Action:** Always use `onClick={(e) => e.stopPropagation()}` on interactive elements nested inside clickable containers. Group visual-only elements like star icons in an `aria-hidden="true"` container and provide a descriptive `aria-label` on the text representation of the rating.
