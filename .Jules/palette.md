@@ -1,0 +1,3 @@
+## 2024-04-03 - Nested Interactive Elements & Icon Semantics in Product Cards
+**Learning:** Adding interactive elements (like wishlist buttons) within larger clickable container elements (like a whole product card) causes unintended navigation via event bubbling. Further, visual ratings often pair with text equivalents, causing redundant and verbose screen reader announcements if the rating images don't have empty alt attributes and hidden containers.
+**Action:** Always apply `onClick={(e) => e.stopPropagation()}` to interactive children of clickable containers. Always use `aria-hidden="true"` on the wrapper of visual ratings and set `alt=""` on individual star images when a text equivalent is present.
