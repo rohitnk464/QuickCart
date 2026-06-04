@@ -1,0 +1,4 @@
+
+## 2024-05-18 - Visual Star Ratings Accessibility & Nested Interactivity
+**Learning:** Visual star ratings using duplicate images for 'stars' (e.g., filled/empty) introduce redundant and confusing screen reader announcements when a numerical score is already present. Additionally, placing interactive elements like 'Add to Wishlist' or 'Buy Now' inside a card container that handles navigation inherently causes click bubbling and accessibility issues.
+**Action:** Always add `aria-hidden="true"` to visual star container wrappers and empty `alt=""` attributes to the star images if the score is announced otherwise. For nested buttons within navigation containers, explicitly attach `onClick={(e) => e.stopPropagation()}` and ensure a clear focus state (like `focus-visible:ring-2`) is applied to maintain independent interactivity.
