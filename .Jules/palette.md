@@ -1,0 +1,3 @@
+## 2024-05-18 - ProductCard Accessibility and Interaction Improvements
+**Learning:** Nested interactive elements within clickable containers need stopPropagation to prevent unintended navigation. Visual star ratings paired with text ratings need aria-hidden="true" and empty alt text for star icons to prevent screen reader redundancy.
+**Action:** Always add onClick={(e) => e.stopPropagation()} to buttons inside clickable cards. Use empty alt text for purely decorative icons and aria-hidden="true" on visual ratings that are also represented as text.
