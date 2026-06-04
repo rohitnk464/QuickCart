@@ -1,0 +1,65 @@
+
+> ecommerce-inngest@0.1.0 dev /app
+> next dev --turbopack
+
+▲ Next.js 16.1.6 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.0.2:3000
+
+✓ Starting...
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js' roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+
+⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+✓ Ready in 2.8s
+○ Compiling / ...
+
+[35m
+[Clerk]:[0m You are running in keyless mode.
+You can [35mclaim your keys[0m by visiting https://dashboard.clerk.com/apps/claim?token=1zsvb799fnvo4s1uj7zfi9v67itn4l0a2fg2kqrm&return_url=http%3A%2F%2Flocalhost%3A3000%2F
+
+ GET / 200 in 15.1s (compile: 8.1s, proxy.ts: 225ms, render: 6.8s)
+ POST / 200 in 48ms (compile: 12ms, proxy.ts: 10ms, render: 26ms)
+ GET / 200 in 80ms (compile: 7ms, proxy.ts: 26ms, render: 47ms)
+ POST / 303 in 199ms (compile: 26ms, proxy.ts: 21ms, render: 152ms)
+ GET / 200 in 76ms (compile: 11ms, proxy.ts: 28ms, render: 36ms)
+⨯ Error: Please define MONGODB_URI in .env
+    at module evaluation (config/db.js:6:9)
+    at module evaluation (app/api/product/list/route.js:1:1)
+    at Object.<anonymous> (.next/dev/server/app/api/product/list/route.js:5:3)
+  4 |
+  5 | if (!MONGODB_URI) {
+> 6 |   throw new Error("Please define MONGODB_URI in .env");
+    |         ^
+  7 | }
+  8 |
+  9 | let cached = global.mongoose; {
+  page: '/api/product/list'
+}
+ GET /api/product/list 500 in 3.6s (compile: 3.3s, proxy.ts: 11ms, render: 273ms)
+ GET /all-products 200 in 1342ms (compile: 1207ms, proxy.ts: 8ms, render: 127ms)
+⨯ Error: Please define MONGODB_URI in .env
+    at module evaluation (config/db.js:6:9)
+    at module evaluation (app/api/product/list/route.js:1:1)
+    at Object.<anonymous> (.next/dev/server/app/api/product/list/route.js:5:3)
+  4 |
+  5 | if (!MONGODB_URI) {
+> 6 |   throw new Error("Please define MONGODB_URI in .env");
+    |         ^
+  7 | }
+  8 |
+  9 | let cached = global.mongoose; {
+  page: '/api/product/list'
+}
+ GET /api/product/list 500 in 145ms (compile: 117ms, proxy.ts: 8ms, render: 19ms)
+ POST /all-products 200 in 150ms (compile: 27ms, proxy.ts: 110ms, render: 13ms)
+ GET /all-products 200 in 72ms (compile: 5ms, proxy.ts: 12ms, render: 56ms)
+ POST /all-products 303 in 117ms (compile: 6ms, proxy.ts: 5ms, render: 106ms)
+ GET /all-products 200 in 48ms (compile: 5ms, proxy.ts: 11ms, render: 32ms)
+ GET /all-products 200 in 90ms (compile: 5ms, proxy.ts: 6ms, render: 79ms)
+ POST /all-products 200 in 27ms (compile: 7ms, proxy.ts: 12ms, render: 8ms)
+ GET /all-products 200 in 72ms (compile: 5ms, proxy.ts: 11ms, render: 56ms)
+ POST /all-products 303 in 148ms (compile: 21ms, proxy.ts: 6ms, render: 121ms)
+ GET /all-products 200 in 37ms (compile: 5ms, proxy.ts: 9ms, render: 23ms)
