@@ -10,16 +10,24 @@ const NewsLetter = () => {
         Lorem Ipsum is simply dummy text of the printing and typesetting
         industry.
       </p>
-      <div className="flex items-center justify-between max-w-2xl w-full md:h-14 h-12">
+      <form
+        onSubmit={(e) => e.preventDefault()}
+        className="flex items-center justify-between max-w-2xl w-full md:h-14 h-12"
+      >
         <input
-          className="border border-gray-500/30 rounded-md h-full border-r-0 outline-none w-full rounded-r-none px-3 text-gray-500"
-          type="text"
+          className="border border-gray-500/30 rounded-md h-full border-r-0 outline-none focus-visible:ring-2 focus-visible:ring-orange-600 focus-visible:border-transparent w-full rounded-r-none px-3 text-gray-500"
+          type="email"
           placeholder="Enter your email id"
+          required
+          aria-label="Email address for newsletter"
         />
-        <button className="md:px-12 px-8 h-full text-white bg-orange-600 rounded-md rounded-l-none">
+        <button
+          type="submit"
+          className="md:px-12 px-8 h-full text-white bg-orange-600 hover:bg-orange-700 focus-visible:ring-2 focus-visible:ring-orange-600 focus-visible:ring-offset-2 focus-visible:outline-none transition-colors rounded-md rounded-l-none"
+        >
           Subscribe
         </button>
-      </div>
+      </form>
     </div>
   );
 };
