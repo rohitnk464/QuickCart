@@ -1,0 +1,3 @@
+## 2024-05-15 - Visual star ratings accessibility
+**Learning:** Visual star ratings in the UI paired with text-based ratings (like in `ProductCard.jsx`) lead to redundant and confusing announcements for screen readers if the star images have alt text.
+**Action:** Always hide the container for the visual star images using `aria-hidden="true"` and set the individual star images to have empty `alt` attributes (`alt=""`) when a text-based rating is also present to prevent redundant announcements.
