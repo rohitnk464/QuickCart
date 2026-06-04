@@ -1,0 +1,3 @@
+## 2024-03-24 - Screen Reader Redundancy & Event Propagation in Clickable Cards
+**Learning:** Pairing visual element (like star ratings) with a text equivalent (like '4.5') causes screen readers to redundantly announce "star icon" multiple times. Additionally, nested interactive buttons inside a clickable container (like a product card) will trigger the parent's navigation unless `e.stopPropagation()` is explicitly used.
+**Action:** Always use `aria-hidden="true"` and empty `alt=""` on decorative images or images mapped directly to nearby readable text. Always use `e.stopPropagation()` on nested interactive elements (like wishlist or "Buy now" buttons) inside interactive cards to preserve intended functionality and prevent unwanted navigation.
