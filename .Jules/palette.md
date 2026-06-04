@@ -1,0 +1,3 @@
+## 2024-04-29 - Prevent click events from propagating from nested buttons and fix redundant screen reader announcement for ratings
+**Learning:** In clickable cards (like ProductCard), nested buttons trigger the outer link/div navigation if `onClick={(e) => e.stopPropagation()}` is not provided. Also, visual star ratings combined with a text rating result in redundant screen reader announcements if the stars are not marked with `aria-hidden="true"`.
+**Action:** When nesting interactive elements in a clickable container, always use `stopPropagation()`. When providing visual ratings next to a text representation, always hide the visual wrapper from screen readers via `aria-hidden` and use empty `alt=""` text for the rating icons.
