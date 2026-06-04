@@ -1,0 +1,3 @@
+## 2026-04-21 - Product Card Accessibility and Interaction Learnings
+**Learning:** Nested interactive elements within a clickable container card (like `ProductCard`) will trigger the container's navigation event when clicked, confusing users. Additionally, visual star ratings paired with text ratings create redundant, repetitive announcements for screen reader users if each star has alt text.
+**Action:** Always add `onClick={(e) => e.stopPropagation()}` to internal interactive elements (like wishlist or "Buy now" buttons) within a clickable container. For visual ratings paired with a text score, wrap the images in an `aria-hidden="true"` container and use empty `alt=""` attributes on individual visual elements.
