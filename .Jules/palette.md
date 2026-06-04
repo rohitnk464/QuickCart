@@ -1,0 +1,3 @@
+## 2025-04-06 - Accessible Nested Interactive Elements & Redundant Star Ratings
+**Learning:** When pairing visual star ratings with text ratings (e.g., '4.5' alongside 5 star images), the visual images are redundant to screen readers. Additionally, having nested interactive elements (like a wishlist button inside a clickable product card div) is an accessibility violation and causes parent interactions to trigger unintendedly.
+**Action:** Always add `aria-hidden="true"` to the container of decorative visual ratings and use empty `alt=""` for the individual rating icons. Always use `onClick={(e) => e.stopPropagation()}` on interactive elements nested within clickable containers to prevent parent event triggering.
