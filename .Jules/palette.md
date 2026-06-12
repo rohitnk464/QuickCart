@@ -1,0 +1,3 @@
+## 2024-06-12 - ProductCard Accessibility and Interaction Improvements
+**Learning:** When interactive elements (like wishlist or buy buttons) are nested inside clickable card containers in Next.js, their click events bubble up and trigger the container's navigation, leading to unintended behavior. Also, rendering repetitive decorative elements (like star ratings) without `aria-hidden` and empty `alt` attributes causes severe screen reader noise (reading "star_icon" 5 times).
+**Action:** Always use `onClick={(e) => e.stopPropagation()}` on nested buttons to prevent event bubbling. Always group decorative image arrays in a container with `aria-hidden="true"` and use empty `alt=""` attributes to ensure a clean screen reader experience.
