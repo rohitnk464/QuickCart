@@ -1,0 +1,3 @@
+## 2024-06-18 - Clickable Cards and Event Bubbling
+**Learning:** This app heavily uses outer clickable `div` elements for product cards that contain nested interactive elements (like "Buy now" and wishlist buttons). Without proper event handling, clicking a nested button incorrectly triggers the parent's navigation, confusing the user. Additionally, visual star ratings paired with text scores create redundant screen reader announcements if not hidden.
+**Action:** When implementing interactive buttons inside clickable cards, always add `e.stopPropagation()` to prevent unwanted navigation. Ensure nested buttons have proper `aria-label`s and `focus-visible` styles, and apply `aria-hidden="true"` to redundant visual elements like star rating containers.
