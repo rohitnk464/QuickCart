@@ -1,0 +1,3 @@
+## 2024-06-20 - Fix nested buttons & hide redundant visual ratings
+**Learning:** Nested interactive elements within clickable containers (e.g., wishlist/buy buttons inside a product card `div` that triggers navigation) cause unintended parent events. Also, visual star ratings paired directly with text ratings cause redundant screen reader announcements if not hidden correctly.
+**Action:** Always use `onClick={(e) => e.stopPropagation()}` on buttons nested inside clickable containers. For visual UI paired with textual equivalents, use `aria-hidden="true"` on the visual container and empty `alt=""` text on individual image components to reduce screen reader noise.
