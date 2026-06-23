@@ -1,0 +1,3 @@
+## 2024-06-23 - Interactive Elements in Clickable Containers
+**Learning:** When adding interactive elements like wishlist or 'Buy now' buttons inside a clickable container (like the `ProductCard` div), they require `onClick={(e) => e.stopPropagation()}` to prevent unintended triggering of the parent container's navigation events. Also, visual decorative elements like star ratings that are paired with text ratings need `aria-hidden="true"` and empty `alt=""` attributes on images to prevent redundant and confusing screen reader announcements.
+**Action:** Always add event propagation stoppers to nested interactive elements and hide purely decorative visual ratings from screen readers when their text equivalent is already present.
