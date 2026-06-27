@@ -1,0 +1,3 @@
+## 2026-06-27 - Preventing Nested Click Events in Clickable Cards
+**Learning:** In React/Next.js, when using clickable container elements (like a ProductCard `div` that triggers navigation) combined with nested interactive elements (like a "Buy now" or "Add to wishlist" button), clicking the nested buttons will bubble up and trigger the parent container's click event. This causes unintended behaviors, like navigating to a product page while simultaneously adding the item to the cart or wishlist.
+**Action:** Always add `onClick={(e) => e.stopPropagation()}` to any nested interactive `<button>` or `<a>` elements within a clickable container card to prevent event bubbling and ensure each action works independently without conflict.
