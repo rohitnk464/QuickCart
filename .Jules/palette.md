@@ -1,0 +1,3 @@
+## 2024-06-29 - Nested Interactive Elements & Decorative Star Ratings
+**Learning:** Adding interactive elements (like a wishlist or "Buy now" button) inside a clickable card container can trigger unintended navigation, and nesting `role="button"` on the card causes severe WCAG violations. Also, visual star ratings paired with text ratings need to be hidden from screen readers to prevent redundant announcements.
+**Action:** Use `onClick={(e) => e.stopPropagation()}` on nested buttons to prevent event bubbling to the parent container. Use `aria-hidden="true"` on the star rating container and empty `alt=""` attributes for decorative star images. Add keyboard accessibility (focus states) using `focus-visible:ring-2 focus-visible:outline-none`.
