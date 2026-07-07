@@ -1,0 +1,4 @@
+
+## 2026-07-07 - Accessible Nested Actions & Hiding Redundant Visuals
+**Learning:** Adding interactive elements (like a wishlist button or "Buy now") inside a larger clickable container (like `ProductCard`) requires preventing event bubbling so it doesn't accidentally trigger the parent's navigation. Also, when a visual element like star ratings is accompanied by text indicating the rating (e.g., "4.5"), the individual star images should be hidden from screen readers using `aria-hidden="true"` on the container and empty `alt=""` on the individual images to prevent redundant, verbose announcements.
+**Action:** When nesting interactive elements, always use `onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}`. For visual representations of data that are also provided in text, hide the visual component from screen readers to reduce noise.
