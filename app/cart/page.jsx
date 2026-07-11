@@ -62,7 +62,8 @@ const Cart = () => {
                           </div>
 
                           <button
-                            className="md:hidden text-xs text-orange-600 mt-1"
+                            className="md:hidden text-xs text-orange-600 mt-1 focus-visible:ring-2 outline-none rounded"
+                            aria-label="Remove product"
                             onClick={() => updateCartQuantity(product._id, 0)}
                           >
                             Remove
@@ -72,7 +73,8 @@ const Cart = () => {
                         <div className="text-sm hidden md:block">
                           <p className="text-gray-800">{product.name}</p>
                           <button
-                            className="text-xs text-orange-600 mt-1"
+                            className="text-xs text-orange-600 mt-1 focus-visible:ring-2 outline-none rounded"
+                            aria-label="Remove product"
                             onClick={() => updateCartQuantity(product._id, 0)}
                           >
                             Remove
@@ -86,10 +88,14 @@ const Cart = () => {
 
                       <td className="py-4 md:px-4 px-1">
                         <div className="flex items-center md:gap-2 gap-1">
-                          <button onClick={() => updateCartQuantity(product._id, cartItems[itemId] - 1)}>
+                          <button
+                            onClick={() => updateCartQuantity(product._id, cartItems[itemId] - 1)}
+                            aria-label="Decrease quantity"
+                            className="focus-visible:ring-2 outline-none rounded"
+                          >
                             <Image
                               src={assets.decrease_arrow}
-                              alt="decrease_arrow"
+                              alt=""
                               className="w-4 h-4"
                             />
                           </button>
@@ -98,13 +104,18 @@ const Cart = () => {
                             onChange={e => updateCartQuantity(product._id, Number(e.target.value))}
                             type="number"
                             value={cartItems[itemId]}
-                            className="w-8 border text-center appearance-none"
+                            aria-label="Quantity"
+                            className="w-8 border text-center appearance-none focus-visible:ring-2 outline-none"
                           />
 
-                          <button onClick={() => addToCart(product._id)}>
+                          <button
+                            onClick={() => addToCart(product._id)}
+                            aria-label="Increase quantity"
+                            className="focus-visible:ring-2 outline-none rounded"
+                          >
                             <Image
                               src={assets.increase_arrow}
-                              alt="increase_arrow"
+                              alt=""
                               className="w-4 h-4"
                             />
                           </button>
