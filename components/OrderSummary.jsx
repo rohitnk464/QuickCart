@@ -20,6 +20,7 @@ const OrderSummary = () => {
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [userAddresses, setUserAddresses] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const fetchUserAddresses = async () => {
     try {
@@ -48,6 +49,7 @@ const OrderSummary = () => {
 
   const createOrder = async () => {
     try {
+      setIsSubmitting(true);
       if (!selectedAddress) {
         return toast.error("Please select an address");
       }
@@ -80,6 +82,8 @@ const OrderSummary = () => {
 
     } catch (error) {
       toast.error(error.message);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -163,9 +167,10 @@ const OrderSummary = () => {
 
       <button
         onClick={createOrder}
-        className="w-full bg-orange-600 text-white py-3 mt-5 hover:bg-orange-700"
+        disabled={isSubmitting}
+        className="w-full bg-orange-600 text-white py-3 mt-5 hover:bg-orange-700 disabled:opacity-70 disabled:cursor-not-allowed focus-visible:ring-2 outline-none focus-visible:ring-offset-2 transition"
       >
-        Place Order
+        {isSubmitting ? "Placing Order..." : "Place Order"}
       </button>
     </div>
   );
