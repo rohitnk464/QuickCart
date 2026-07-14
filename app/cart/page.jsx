@@ -86,10 +86,14 @@ const Cart = () => {
 
                       <td className="py-4 md:px-4 px-1">
                         <div className="flex items-center md:gap-2 gap-1">
-                          <button onClick={() => updateCartQuantity(product._id, cartItems[itemId] - 1)}>
+                          <button
+                            onClick={() => updateCartQuantity(product._id, cartItems[itemId] - 1)}
+                            className="focus-visible:ring-2 outline-none rounded"
+                            aria-label={`Decrease quantity of ${product.name}`}
+                          >
                             <Image
                               src={assets.decrease_arrow}
-                              alt="decrease_arrow"
+                              alt=""
                               className="w-4 h-4"
                             />
                           </button>
@@ -98,13 +102,18 @@ const Cart = () => {
                             onChange={e => updateCartQuantity(product._id, Number(e.target.value))}
                             type="number"
                             value={cartItems[itemId]}
-                            className="w-8 border text-center appearance-none"
+                            className="w-8 border text-center appearance-none focus-visible:ring-2 outline-none"
+                            aria-label={`Quantity of ${product.name}`}
                           />
 
-                          <button onClick={() => addToCart(product._id)}>
+                          <button
+                            onClick={() => addToCart(product._id)}
+                            className="focus-visible:ring-2 outline-none rounded"
+                            aria-label={`Increase quantity of ${product.name}`}
+                          >
                             <Image
                               src={assets.increase_arrow}
-                              alt="increase_arrow"
+                              alt=""
                               className="w-4 h-4"
                             />
                           </button>
