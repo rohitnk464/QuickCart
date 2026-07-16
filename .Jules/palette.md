@@ -1,3 +1,6 @@
 ## 2024-06-12 - ProductCard Accessibility and Interaction Improvements
 **Learning:** When interactive elements (like wishlist or buy buttons) are nested inside clickable card containers in Next.js, their click events bubble up and trigger the container's navigation, leading to unintended behavior. Also, rendering repetitive decorative elements (like star ratings) without `aria-hidden` and empty `alt` attributes causes severe screen reader noise (reading "star_icon" 5 times).
 **Action:** Always use `onClick={(e) => e.stopPropagation()}` on nested buttons to prevent event bubbling. Always group decorative image arrays in a container with `aria-hidden="true"` and use empty `alt=""` attributes to ensure a clean screen reader experience.
+## 2025-02-28 - Accessible Icon-Only Adjustment Buttons in Cart
+**Learning:** Icon-only buttons used for cart quantity adjustments (like + and - arrows) are frequently completely inaccessible, missing descriptive accessible names, and reading out redundant nested `Image` component paths when focused.
+**Action:** Always add an explicit `aria-label` detailing the exact action and item to icon-only adjustment buttons, and set `alt=""` on nested images/icons to prevent redundant screen reader announcements.
